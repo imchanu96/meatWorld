@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recipe.meat.domain.MeatworldMapper">
+
+    <!-- tb_post 테이블 전체 컬럼 -->
+    <sql id="recipeLists">
+        recipe_id,
+        cuisine_id,
+        meat_part_id,
+        recipe_name,
+        recipe_description,
+        recipe_estimated_time,
+        recipe_ingredients
+    </sql>
+
+    <!-- 게시글 저장 -->
+    <insert id="saveRecipeList" parameterType="com.recipe.meat.domain.RecipeListRequest" useGeneratedKeys="true" keyProperty="recipeListId">
+        INSERT INTO recipe_list (
+        <include refid="recipeLists" />
+        ) VALUES (
+        #{recipeListId}
+        , #{cuisineId}
+        , #{meatPartId}
+        , #{recipeName}
+        , #{recipeDescription}
+        , #{recipeEstimatedTime}
+        , #{recipeIngredients}
+        )
+    </insert>
+
+
+    <!-- 게시글 상세정보 조회 -->
+    <select id="findByRecipeId" parameterType="integer" resultType="com.recipe.meat.domain.RecipeListResponse">
+        SELECT
+        <include refid="recipeLists" />
+        FROM
+        recipe_list
+        WHERE
+        id = #{recipeListId}
+    </select>
+
+
+    <!-- 게시글 수정 -->
+    <update id="updateRecipeList" parameterType="com.recipe.meat.domain.RecipeListRequest">
+        UPDATE recipe_list
+        SET
+        cuisine_id = #{cuisineId}
+        , meat_part_id = #{meatPartId}
+        , recipe_name = #{recipeName}
+        , recipe_description = #{recipeDescription}
+        , recipe_estimated_time = #{recipeEstimatedTime}
+        , recipe_ingredients = #{recipeIngredients}
+        WHERE
+        recipe_id = #{recipeListId}
+    </update>
+
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteByRecipeId" parameterType="integer">
+        DELETE FROM recipe_list
+        WHERE recipe_id = #{recipeListId}
+    </delete>
+
+
+    <!-- 게시글 리스트 조회 -->
+    <select id="findRecipeListAll" resultType="com.recipe.meat.domain.RecipeListResponse">
+        SELECT
+        <include refid="recipeLists" />
+        FROM
+        recipe_list
+        ORDER BY recipe_id DESC
+    </select>
+
+</mapper>
