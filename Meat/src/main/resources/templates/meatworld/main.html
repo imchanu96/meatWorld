@@ -6,16 +6,22 @@
             육세계 <MeatWorld>
         </title>
     </head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="../css/main.css">
     <script src="../js/main.js"></script>
     <body>
         <div>
+            <div id="logo_section">
+                <img id="logo_img" src="../img/육세계로고.png">
+                <div>육세계</div>
+            </div>
             <div id="header"> <!-- 헤더 시작 -->
-                <div id="logo_section">
-                    <img id="logo_img" src="../img/육세계로고.png">
-                </div>
+                
                 <div id="category_section">
                     <div id="category" onmouseover="showCategoryFnc()">
+                        <div class="category_list_detail_empty">
+
+                        </div>
                         <div class="category_list">
                             <a href="#">고기 부위</a>
                         </div>
@@ -28,41 +34,29 @@
                     </div>
                 </div>
                 <div id="category_detail_section">
-                    <div id="category_list_detail_empty">
+                    <div class="category_list_detail_empty">
 
                     </div>
                     <div id="category_detail">
                         <div>
-                            <div class="detail_category meat_part_category">
-                                <a href="#">돼지</a>
-                            </div>
-                            <div class="detail_category meat_part_category">
-                                <a href="#">소</a>
-                            </div>
-                            <div class="detail_category meat_part_category">
-                                <a href="#">닭</a>
+                            <div class="category_detail_list meat_part_category" v-for="category in meatPartList">
+                                <a href="#" >
+                                    {{category.meatPart}}
+                                </a>
                             </div>
                         </div>
                         <div>
-                            <div class="detail_category recipe_category">
-                                <a href="#">돼지고기</a>
-                            </div>
-                            <div class="detail_category recipe_category">
-                                <a href="#">돼지고기</a>
-                            </div>
-                            <div class="detail_category recipe_category">
-                                <a href="#">돼지고기</a>
+                            <div class="category_detail_list recipe_category"v-for="category in recipeList">
+                                <a href="#" >
+                                    {{category.recipe}}
+                                </a>
                             </div>
                         </div>
                         <div>
-                            <div class="detail_category board_category">
-                                <a href="#">돼지고기</a>
-                            </div>
-                            <div class="detail_category board_category">
-                                <a href="#">돼지고기</a>
-                            </div>
-                            <div class="detail_category board_category">
-                                <a href="#">돼지고기</a>
+                            <div class="category_detail_list board_category"v-for="category in boardList">
+                                <a href="#" >
+                                    {{category.board}}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -78,10 +72,57 @@
                 </div>
             </div>             <!-- 헤더 끝 -->
             <div class="empty"></div>
+            <div id="content_section">
+                <div id="today_recipe_description">
+                    <div>
+                        레시피
+                    </div>
+                </div>
+                <div id="board_summary_description">
+                    <div>
+                        게시판
+                    </div>
+                </div>
+                <div id="today_recipe">
+                    <!-- <img src="http://via.placeholder.com/600x400" alt=""> -->
+                </div>
+                
+                <div id="board_summary">
+                    <!-- <img src="http://via.placeholder.com/700x400" alt=""> -->
+                </div>
+            </div>
             <div id="test">
                 asd
             </div>
 
         </div>
+        <script>
+            var category = new Vue({
+                el : '#category_detail',
+                data : {
+                    meatPartList : [
+                        {meatPart : '돼지'},
+                        {meatPart : '소'},
+                        {meatPart : '닭'}
+                    ],
+                    recipeList : [
+                        {recipe : '아시아'},
+                        {recipe : '유럽'},
+                        {recipe : '아프리카'},
+                        {recipe : '아메리카'},
+                        {recipe : '오세아니아'},
+                        {recipe : '아메리카'},
+                        {recipe : '오세아니아'},
+                        {recipe : '아메리카'},
+                        {recipe : '오세아니아'}
+                    ],
+                    boardList : [
+                        {board : '임시'},
+                        {board : '임시'},
+                        {board : '임시'}
+                    ]
+                }
+            })
+        </script>
     </body>
 </html>
