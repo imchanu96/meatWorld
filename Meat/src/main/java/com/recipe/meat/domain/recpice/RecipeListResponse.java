@@ -1,10 +1,10 @@
-package com.recipe.meat.domain;
+package com.recipe.meat.domain.recpice;
 
 import lombok.Getter;
 
 @Getter
 public class RecipeListResponse {
-    private int recipeListId;                       // PK
+    private int recipeId;                       // PK
     private int cuisineId;                          // 퀴진 번호
     private int meatPartId;                         // 부위 번호
     private String recipeName;                      // 레시피 이름

@@ -1,11 +1,11 @@
-package com.recipe.meat.domain;
+package com.recipe.meat.domain.recpice;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface MeatworldMapper {
+public interface RecipeMapper {
     /**
      * 레시피 저장
      * @param params - 레시피 정보
@@ -42,4 +42,7 @@ public interface MeatworldMapper {
      * @return 게시글 수
      */
     //int count();
+
+
+
 }

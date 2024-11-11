@@ -7,12 +7,12 @@
         </title>
     </head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <link rel="stylesheet" href="../css/main.css">
-    <script src="../js/main.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/main.js"></script>
     <body>
         <div>
             <div id="logo_section">
-                <img id="logo_img" src="../img/육세계로고.png">
+                <img id="logo_img" src="/img/육세계로고.png">
                 <div>육세계</div>
             </div>
             <div id="header"> <!-- 헤더 시작 -->
@@ -39,25 +39,32 @@
                     </div>
                     <div id="category_detail">
                         <div>
-                            <div class="category_detail_list meat_part_category" v-for="category in meatPartList">
+                            <div class="category_detail_list meat_part_category" v-for="meatPart in meatPartList" :key="meatPart.id">
                                 <a href="#" >
-                                    {{category.meatPart}}
+                                    {{meatPart}}
                                 </a>
                             </div>
                         </div>
                         <div>
-                            <div class="category_detail_list recipe_category"v-for="category in recipeList">
-                                <a href="#" >
-                                    {{category.recipe}}
-                                </a>
+                            <div class="category_detail_list recipe_category"v-for="(minorCategories, majorCategory) in cuisineMap" :key="majorCategory">
+                                <ul>
+                                    <a href="#" >
+                                        {{majorCategory}}
+                                    </a>
+                                    <li v-for="minorCategory in minorCategories" :key="minorCategory">
+                                        <a href="#" >
+                                            {{minorCategory}}
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div>
-                            <div class="category_detail_list board_category"v-for="category in boardList">
-                                <a href="#" >
-                                    {{category.board}}
-                                </a>
-                            </div>
+<!--                            <div class="category_detail_list board_category"v-for="category in boardList">-->
+<!--                                <a href="#" >-->
+<!--                                    {{category.board}}-->
+<!--                                </a>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -96,33 +103,42 @@
             </div>
 
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
-            var category = new Vue({
-                el : '#category_detail',
-                data : {
-                    meatPartList : [
-                        {meatPart : '돼지'},
-                        {meatPart : '소'},
-                        {meatPart : '닭'}
-                    ],
-                    recipeList : [
-                        {recipe : '아시아'},
-                        {recipe : '유럽'},
-                        {recipe : '아프리카'},
-                        {recipe : '아메리카'},
-                        {recipe : '오세아니아'},
-                        {recipe : '아메리카'},
-                        {recipe : '오세아니아'},
-                        {recipe : '아메리카'},
-                        {recipe : '오세아니아'}
-                    ],
-                    boardList : [
-                        {board : '임시'},
-                        {board : '임시'},
-                        {board : '임시'}
-                    ]
+            new Vue({
+            el: '#category_detail',
+            data() {
+                return {
+                    meatPartList: [],
+                    cuisineMap: []
+                };
+            },
+            mounted() {
+                this.fetchMeatParts();
+                this.fetchCuisineMap();
+            },
+            methods: {
+                async fetchMeatParts() {
+                    try {
+                        const response = await axios.get('http://localhost:8087/api/meatPartList');
+                        console.log(response.data);
+                        this.meatPartList = response.data;
+                    } catch (error) {
+                        console.error('Error fetching meat parts:', error);
+                    }
+                },
+                async fetchCuisineMap() {
+                    try {
+                        const response = await axios.get('http://localhost:8087/api/cuisineMap');
+
+                        this.cuisineMap = response.data;
+                        console.log(response.data);
+                    } catch (error) {
+                        console.error('Error fetching cuisineMap:', error);
+                    }
                 }
-            })
+            }
+        });
         </script>
     </body>
 </html>

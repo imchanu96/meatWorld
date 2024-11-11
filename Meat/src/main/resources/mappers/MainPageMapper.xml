@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recipe.meat.domain.mainPage.MainPageMapper">
+
+    <!-- meat_part 테이블 전체 컬럼 -->
+    <sql id="meatPartLists">
+        meat_part_id,
+        meat_part_type,
+        part_name,
+        part_usage,
+        part_description
+    </sql>
+    <!-- recipe_list 테이블 전체 컬럼 -->
+    <sql id="recipeLists">
+        recipe_id,
+        cuisine_id,
+        meat_part_id,
+        recipe_name,
+        recipe_description,
+        recipe_estimated_time,
+        recipe_ingredients
+    </sql>
+
+    <sql id="cuision_list">
+        cuisine_id,
+        cuisine_major_category,
+        cuisine_minor_category
+    </sql>
+
+    <select id="findMeatPartTypeAll" resultType="string">
+        SELECT DISTINCT
+        meat_part_type
+        FROM meat_part
+        ORDER BY meat_part_id
+    </select>
+
+    <select id="findCuisineAll" resultType="com.recipe.meat.domain.recpice.CuisineListResponse">
+        SELECT DISTINCT
+        cuisine_major_category, cuisine_minor_category
+        FROM cuisine_list
+        ORDER BY cuisine_id
+    </select>
+
+    <select id="findRecipeAll" resultType="com.recipe.meat.domain.recpice.RecipeListResponse">
+        SELECT
+        <include refid="recipeLists" />
+        FROM recipe_list
+        ORDER BY recipe_id DESC
+    </select>
+
+</mapper>
