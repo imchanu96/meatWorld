@@ -9,8 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/main.js"></script>
+<!--    <link rel="stylesheet" href="../../static/css/main.css">-->
+<!--    <script src="../../static/js/main.js"></script>-->
+    
     <body>
         <div>
+            <div id="logo_background"></div>
             <div id="logo_section">
                 <img id="logo_img" src="/img/육세계로고.png">
                 <div>육세계</div>
@@ -72,7 +76,20 @@
             <div class="empty"></div>
             <div id="banner">  <!-- 배너 시작 -->
                 <div id="meat_description">
-                    <img src="http://via.placeholder.com/578x350" alt="">
+                    <div id ="wrapper">
+                        <div class="swiper_slide swiper_slide_show">
+                            <img src="/img/beaf.png" alt="">
+                        </div>
+                        <div class="swiper_slide">
+                            <img src="/img/pork.png" alt="">
+                        </div>
+                        <div class="swiper_slide">
+                            <img src="/img/chicken.png" alt="">
+                        </div>
+                    </div>
+                    <div id="meat_description_text">
+
+                    </div>
                 </div>
                 <div id="best_meat_part">
                     <img src="http://via.placeholder.com/913x350" alt="">
@@ -91,7 +108,9 @@
                     </div>
                 </div>
                 <div id="today_recipe">
-                    <!-- <img src="http://via.placeholder.com/600x400" alt=""> -->
+                     <a href="#">
+                         <img src="http://via.placeholder.com/600x400" alt="">
+                     </a>
                 </div>
                 
                 <div id="board_summary">
@@ -121,7 +140,7 @@
                 async fetchMeatParts() {
                     try {
                         const response = await axios.get('http://localhost:8087/api/meatPartList');
-                        console.log(response.data);
+<!--                        console.log(response.data);-->
                         this.meatPartList = response.data;
                     } catch (error) {
                         console.error('Error fetching meat parts:', error);
@@ -132,7 +151,7 @@
                         const response = await axios.get('http://localhost:8087/api/cuisineMap');
 
                         this.cuisineMap = response.data;
-                        console.log(response.data);
+<!--                        console.log(response.data);-->
                     } catch (error) {
                         console.error('Error fetching cuisineMap:', error);
                     }
